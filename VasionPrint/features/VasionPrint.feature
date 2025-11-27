@@ -4,173 +4,74 @@ Feature: Vasion Print Basic Printer functionality
     So I can lessen cost and make it easier
 
 Scenario: Login to Vasion Print Admin Portal
-    Given I open the url "https://jordansnow.printercloudnow.com/admin/"
-    And I pause for 2000ms
-    When I set "VasionTest" to the inputfield "#login-username-field"
-    And I set "VasionTest" to the inputfield "#login-password-field"
-    And I click on the element "#sign-in-button"
-    And I pause for 2000ms
+    Given I login to the admin portal
     Then I expect that the title is "PrinterLogic"
 
 Scenario: I can add a printer
-    Given I pause for 1000ms
-    When I click on the link "New"
-    And I pause for 1000ms
-    Then I expect that element "#addip_link" is visible
-    When I click on the element "#addip_link"
-    And I pause for 1000ms
-    When I set "TempTestPrinter" to the inputfield "#PrinterName"
-    And I set "0.0.0.0" to the inputfield "#IPAddress"
-    And I click on the element "#add_ip_close"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "TempTestPrinter"
+    When I add a printer named "TempTestPrinter" with IP "0.0.0.0"
+    Then the printer "TempTestPrinter" should be visible
 
 Scenario: I can delete a printer
-    Given I pause for 1000ms
-    When I right click on the link "TempTestPrinter"
-    And I pause for 1000ms
-    And I click on the link "Delete"
-    And I pause for 1000ms
-    And I set "DELETE" to the inputfield "#delete_confirm_text"
-    And I click on the element "#delete_confirm_btn_ok"
-    And I pause for 1000ms
-    Then I expect that element "body" not contains the text "TempTestPrinter"
+    When I delete the printer "TempTestPrinter"
+    Then the printer "TempTestPrinter" should not be visible
 
 Scenario: I can edit a printer's Printer Name
-    Given I pause for 1000ms
-    When I click on the link "beepbeep"
-    And I pause for 1000ms
-    And I set "TempTestName" to the inputfield "#str_title"
-    And I click on the link "Save"
-    And I pause for 1000ms
-    Then I expect that element "#str_title" contains the text "TempTestName"
-    When I click on the link "TempTestName"
-    And I pause for 1000ms
-    And I set "beepbeep" to the inputfield "#str_title"
-    And I click on the link "Save"
-    And I pause for 1000ms
-    Then I expect that element "#str_title" contains the text "beepbeep"
+    When I open printer "beepbeep"
+    And I set the printer name to "TempTestName"
+    Then the printer name should be "TempTestName"
+    When I open printer "TempTestName"
+    And I set the printer name to "beepbeep"
+    Then the printer name should be "beepbeep"
     
 Scenario: I can edit a printer's IP address
-    Given I pause for 1000ms
-    When I click on the link "beepbeep"
-    And I pause for 1000ms
-    And I click on the tab "Port"
-    And I pause for 1000ms
+    When I open printer "beepbeep" Port settings
     Then I expect that element "#int_port_number" is visible
-    When I set "1.0.1.0" to the inputfield "#str_host_address"
-    And I click on the link "Save"
-    And I pause for 1000ms
-    Then I expect that element "#str_host_address" contains the text "1.0.1.0"
-    When I set "255.255.255.255" to the inputfield "#str_host_address"
-    And I click on the link "Save"
-    And I pause for 1000ms
-    Then I expect that element "#str_host_address" contains the text "255.255.255.255"
+    When I set the printer IP to "1.0.1.0"
+    Then the printer IP should be "1.0.1.0"
+    When I set the printer IP to "255.255.255.255"
+    Then the printer IP should be "255.255.255.255"
 
 Scenario: I can get to the Vasion Print Admin Guide
     Given I pause for 1000ms
-    When I click on the element "#help-menu"
-    And I click on the link "Product Guide"
-    And I pause for 2000ms
+    When I open the help menu and click "Product Guide"
     Then I expect that a new tab has opened
 
 Scenario: I can access General Settings
     Given I close the last opened tab
     And I pause for 2000ms
-    When I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "General"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "General"
+    When I navigate to "General" settings
+    Then I should see "General" on the page
 
 Scenario: I can access Printing Settings
-    Given I pause for 2000ms
-    When I click on the element "#gear-return-button"
-    And I pause for 2000ms
-    And I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "Printing"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "Printing Configuration"
+    When I navigate to "Printing" settings
+    Then I should see "Printing Configuration" on the page
 
 Scenario: I can access Scanning Settings
-    Given I pause for 2000ms
-    When I click on the element "#gear-return-button"
-    And I pause for 2000ms
-    And I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "Scanning"
-    And I pause for 2000ms
-    Then I expect that element "body" contains the text "Scan Settings"
+    When I navigate to "Scanning" settings
+    Then I should see "Scan Settings" on the page
 
 Scenario: I can access Output Settings
-    Given I pause for 2000ms
-    When I click on the element "#gear-return-button"
-    And I pause for 2000ms
-    And I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "Output"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "Output Settings"
+    When I navigate to "Output" settings
+    Then I should see "Output Settings" on the page
 
 Scenario: I can access Portal Settings
-    Given I pause for 2000ms
-    When I click on the element "#gear-return-button"
-    And I pause for 2000ms
-    And I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "Portal"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "Portal Settings"
+    When I navigate to "Portal" settings
+    Then I should see "Portal Settings" on the page
 
 Scenario: I can access Client Settings
-    Given I pause for 2000ms
-    When I click on the element "#gear-return-button"
-    And I pause for 2000ms
-    And I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "Client"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "Client"
+    When I navigate to "Client" settings
+    Then I should see "Client" on the page
 
 Scenario: I can access Mobile Settings
-    Given I pause for 2000ms
-    When I click on the element "#gear-return-button"
-    And I pause for 2000ms
-    And I click on the element "#gear-menu"
-    And I pause for 1000ms
-    And I click on the link "Settings"
-    And I pause for 1000ms
-    And I click on the link "Mobile"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "Mobile Settings"
+    When I navigate to "Mobile" settings
+    Then I should see "Mobile Settings" on the page
 
 Scenario: I can access my account information
-    Given I pause for 1000ms
-    When I click on the element "#user-menu"
-    And I pause for 1000ms
-    And I click on the link "My Account"
-    And I pause for 1000ms
-    Then I expect that element "body" contains the text "License Details"
+    When I access my account information
+    Then I should see "License Details" on the page
 
 Scenario: I can Logout
-    Given I pause for 1000ms
-    When I click on the element "#user-menu"
-    And I pause for 1000ms
-    And I click on the link "Sign Out"
-    And I pause for 3000ms
+    When I logout
     Then I expect that the title is "Vasion Automate"
 
 

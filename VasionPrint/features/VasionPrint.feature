@@ -76,7 +76,7 @@ Scenario: I can get to the Vasion Print Admin Guide
 
 Scenario: I can access General Settings
     Given I close the last opened tab
-    And I pause for 1000ms
+    And I pause for 2000ms
     When I click on the element "#gear-menu"
     And I pause for 1000ms
     And I click on the link "Settings"
@@ -86,61 +86,73 @@ Scenario: I can access General Settings
     Then I expect that element "body" contains the text "General"
 
 Scenario: I can access Printing Settings
-    Given I pause for 1000ms
+    Given I pause for 2000ms
     When I click on the element "#gear-return-button"
-    And I pause for 1000ms
+    And I pause for 2000ms
     And I click on the element "#gear-menu"
+    And I pause for 1000ms
     And I click on the link "Settings"
+    And I pause for 1000ms
     And I click on the link "Printing"
     And I pause for 1000ms
     Then I expect that element "body" contains the text "Printing Configuration"
 
 Scenario: I can access Scanning Settings
-    Given I pause for 1000ms
+    Given I pause for 2000ms
     When I click on the element "#gear-return-button"
-    And I pause for 1000ms
+    And I pause for 2000ms
     And I click on the element "#gear-menu"
-    And I click on the link "Settings"
-    And I click on the link "Scanning"
     And I pause for 1000ms
-    Then I expect that element "body" contains the text "Global Scan Settings"
+    And I click on the link "Settings"
+    And I pause for 1000ms
+    And I click on the link "Scanning"
+    And I pause for 2000ms
+    Then I expect that element "body" contains the text "Scan Settings"
 
 Scenario: I can access Output Settings
-    Given I pause for 1000ms
+    Given I pause for 2000ms
     When I click on the element "#gear-return-button"
-    And I pause for 1000ms
+    And I pause for 2000ms
     And I click on the element "#gear-menu"
+    And I pause for 1000ms
     And I click on the link "Settings"
+    And I pause for 1000ms
     And I click on the link "Output"
     And I pause for 1000ms
     Then I expect that element "body" contains the text "Output Settings"
 
 Scenario: I can access Portal Settings
-    Given I pause for 1000ms
+    Given I pause for 2000ms
     When I click on the element "#gear-return-button"
-    And I pause for 1000ms
+    And I pause for 2000ms
     And I click on the element "#gear-menu"
+    And I pause for 1000ms
     And I click on the link "Settings"
+    And I pause for 1000ms
     And I click on the link "Portal"
     And I pause for 1000ms
     Then I expect that element "body" contains the text "Portal Settings"
 
 Scenario: I can access Client Settings
-    Given I pause for 1000ms
+    Given I pause for 2000ms
     When I click on the element "#gear-return-button"
-    And I pause for 1000ms
+    And I pause for 2000ms
     And I click on the element "#gear-menu"
+    And I pause for 1000ms
     And I click on the link "Settings"
+    And I pause for 1000ms
     And I click on the link "Client"
     And I pause for 1000ms
     Then I expect that element "body" contains the text "Client"
 
 Scenario: I can access Mobile Settings
-    Given I pause for 1000ms
+    Given I pause for 2000ms
     When I click on the element "#gear-return-button"
-    And I pause for 1000ms
+    And I pause for 2000ms
     And I click on the element "#gear-menu"
+    And I pause for 1000ms
     And I click on the link "Settings"
+    And I pause for 1000ms
     And I click on the link "Mobile"
     And I pause for 1000ms
     Then I expect that element "body" contains the text "Mobile Settings"

@@ -2,3 +2,4 @@ behave==1.2.6
 behave-webdriver
 selenium
 chromedriver-autoinstaller
+urllib3<2.0

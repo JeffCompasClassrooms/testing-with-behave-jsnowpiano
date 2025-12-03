@@ -2,6 +2,8 @@ from behave_webdriver.steps import *
 from behave import given, when, then
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 @when('I right click on the element "{selector}"')
@@ -159,18 +161,26 @@ def navigate_to_settings(context, setting_name):
 
 @when('I access my account information')
 def access_account(context):
+    wait = WebDriverWait(context.behave_driver, 15)
+    user_menu = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#user-menu")))
+    context.behave_driver.execute_script("arguments[0].scrollIntoView(true);", user_menu)
+    time.sleep(0.5)
+    user_menu.click()
     time.sleep(1)
-    context.behave_driver.find_element(By.CSS_SELECTOR, "#user-menu").click()
-    time.sleep(1)
-    context.behave_driver.find_element(By.LINK_TEXT, "My Account").click()
+    my_account = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "My Account")))
+    my_account.click()
     time.sleep(1)
 
 @when('I logout')
 def logout(context):
+    wait = WebDriverWait(context.behave_driver, 15)
+    user_menu = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#user-menu")))
+    context.behave_driver.execute_script("arguments[0].scrollIntoView(true);", user_menu)
+    time.sleep(0.5)
+    user_menu.click()
     time.sleep(1)
-    context.behave_driver.find_element(By.CSS_SELECTOR, "#user-menu").click()
-    time.sleep(1)
-    context.behave_driver.find_element(By.LINK_TEXT, "Sign Out").click()
+    sign_out = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Sign Out")))
+    sign_out.click()
     time.sleep(3)
 
 @then('the printer "{printer_name}" should be visible')

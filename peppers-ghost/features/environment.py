@@ -1,7 +1,19 @@
 import behave_webdriver
+import chromedriver_autoinstaller
+from selenium import webdriver
+import os
 
 def before_all(context):
-    context.behave_driver = behave_webdriver.Chrome()
+    chromedriver_autoinstaller.install()
+    
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-gpu')
+    
+    context.behave_driver = behave_webdriver.Chrome(options=chrome_options)
 
 def after_all(context):
-    context.behave_driver.quit()
+    if hasattr(context, 'behave_driver'):
+        context.behave_driver.quit()

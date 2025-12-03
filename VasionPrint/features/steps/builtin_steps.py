@@ -76,7 +76,6 @@ def rename_printer(context, old_name, new_name):
     title_field.send_keys(new_name)
     context.behave_driver.find_element(By.LINK_TEXT, "Save").click()
     time.sleep(1)
-    # Navigate back to printer list
     context.behave_driver.find_element(By.LINK_TEXT, "Printers").click()
     time.sleep(1)
 
@@ -107,7 +106,6 @@ def change_printer_ip(context, printer_name, new_ip):
     host_field.send_keys(new_ip)
     context.behave_driver.find_element(By.LINK_TEXT, "Save").click()
     time.sleep(1)
-    # Navigate back to printer list
     context.behave_driver.find_element(By.LINK_TEXT, "Printers").click()
     time.sleep(1)
 
@@ -137,14 +135,20 @@ def open_help_menu(context, link_text):
 @when('I navigate to "{setting_name}" settings')
 def navigate_to_settings(context, setting_name):
     time.sleep(2)
-    # Try to click return button if it exists and is visible
     try:
         return_button = context.behave_driver.find_element(By.CSS_SELECTOR, "#gear-return-button")
         if return_button.is_displayed():
             return_button.click()
             time.sleep(2)
     except:
-        pass  # Button not found or not visible, continue
+        pass
+    
+    try:
+        printers_link = context.behave_driver.find_element(By.LINK_TEXT, "Printers")
+        printers_link.click()
+        time.sleep(2)
+    except:
+        pass
     
     context.behave_driver.find_element(By.CSS_SELECTOR, "#gear-menu").click()
     time.sleep(1)
@@ -181,13 +185,11 @@ def verify_printer_not_visible(context, printer_name):
 
 @then('the printer name should be "{printer_name}"')
 def verify_printer_name(context, printer_name):
-    # Check the printer name field value on the current page (should already be on printer edit page)
     title_field = context.behave_driver.find_element(By.CSS_SELECTOR, "#str_title")
     assert printer_name in title_field.get_attribute("value"), f"Printer name is not {printer_name}"
 
 @then('the printer IP should be "{ip_address}"')
 def verify_printer_ip(context, ip_address):
-    # Check the IP field value on the current page (should already be on Port tab)
     host_field = context.behave_driver.find_element(By.CSS_SELECTOR, "#str_host_address")
     assert ip_address in host_field.get_attribute("value"), f"IP is not {ip_address}"
 

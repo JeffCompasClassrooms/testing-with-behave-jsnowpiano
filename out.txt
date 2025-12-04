@@ -1,0 +1,157 @@
+Feature: Vasion Print Documentation # features/knowlegebase.feature:1
+  As an IT administrator
+  I want to be able to find documentation on helping me troubleshoot and configure my instance
+  So I can troubleshoot on my own
+  Scenario: Access the knowledge base homepage                                   # features/knowlegebase.feature:6
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base"          # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that the url is "https://kb.printerlogic.com/s/knowledge-base" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:152
+    And I expect that the title is "Knowledge Base"                              # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:25
+    And I expect a new window has not been opened                                # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:271
+
+  Scenario: Search is blank                                                      # features/knowlegebase.feature:12
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base" and wait # features/steps/builtin_steps.py:8
+    Then I wait and expect that element "input" is visible                       # features/steps/builtin_steps.py:21
+    Then I wait and expect that element "input" is empty                         # features/steps/builtin_steps.py:27
+
+  Scenario: Search for printer documentation                                     # features/knowlegebase.feature:17
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base" and wait # features/steps/builtin_steps.py:8
+    When I wait and set "printer" to the inputfield "input.search-input"         # features/steps/builtin_steps.py:13
+    And I pause for 3000ms                                                       # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "input.search-input" contains the text "printer"  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Search and submit query                                                     # features/knowlegebase.feature:23
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base" and wait        # features/steps/builtin_steps.py:8
+    When I wait and set "printer" to the inputfield "input.search-input"                # features/steps/builtin_steps.py:13
+    And I press "Enter"                                                                 # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:80
+    And I pause for 3000ms                                                              # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that the url is "https://kb.printerlogic.com/s/KnowledgeBase/printer" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:152
+
+  Scenario: Search brings results                                                # features/knowlegebase.feature:30
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base" and wait # features/steps/builtin_steps.py:8
+    When I wait and set "push trust" to the inputfield "input.search-input"      # features/steps/builtin_steps.py:13
+    And I press "Enter"                                                          # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:80
+    And I pause for 3000ms                                                       # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "body" contains the text "push trust"             # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Administrator Console quick suggestions brings correct results  # features/knowlegebase.feature:37
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base"     # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:60
+    And I pause for 3000ms                                                  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I click on the link "Administrator Console"                        # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:31
+    And I pause for 3000ms                                                  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "body" contains the text "Admin"             # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Self Service Portal quick suggestions brings correct results      # features/knowlegebase.feature:44
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base"       # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:60
+    And I pause for 3000ms                                                    # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I click on the link "Self-Service Portal"                            # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:31
+    And I pause for 3000ms                                                    # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "body" contains the text "Self-Service Portal" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Server quick suggestions brings correct results             # features/knowlegebase.feature:51
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:60
+    And I pause for 3000ms                                              # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I click on the link "Server"                                   # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:31
+    And I pause for 3000ms                                              # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "body" contains the text "Server"        # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: PrinterLogic WebStack quick suggestions brings correct results  # features/knowlegebase.feature:58
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base"     # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:60
+    And I pause for 3000ms                                                  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I click on the link "PrinterLogic Web Stack"                       # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:31
+    And I pause for 3000ms                                                  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "body" contains the text "Web Stack"         # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Vasion quick suggestions brings correct results             # features/knowlegebase.feature:66
+    Given I open the url "https://kb.printerlogic.com/s/knowledge-base" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:60
+    And I pause for 3000ms                                              # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I click on the link "Vasion"                                   # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:31
+    And I pause for 3000ms                                              # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "body" contains the text "Vasion"        # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:121
+
+1 feature passed, 0 failed, 0 skipped
+10 scenarios passed, 0 failed, 0 skipped
+46 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m58.656s
+Feature: Vasion Print Basic Printer functionality # features/VasionPrint.feature:1     
+  As an IT administrator
+  I want to be able to create printers that my users will be able to install without having to use Printer servers
+  So I can lessen cost and make it easier
+  Scenario: Login to Vasion Print Admin Portal     # features/VasionPrint.feature:6    
+    Given I login to the admin portal              # features/steps/builtin_steps.py:37
+    Then I expect that the title is "PrinterLogic" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:25
+
+  Scenario: I can add a printer                                    # features/VasionPrint.feature:10
+    When I add a printer named "TempTestPrinter" with IP "0.0.0.0" # features/steps/builtin_steps.py:46
+    Then the printer "TempTestPrinter" should be visible           # features/steps/builtin_steps.py:186
+
+  Scenario: I can delete a printer                           # features/VasionPrint.feature:14
+    When I delete the printer "TempTestPrinter"              # features/steps/builtin_steps.py:58
+    Then the printer "TempTestPrinter" should not be visible # features/steps/builtin_steps.py:191
+
+  Scenario: I can edit a printer's Printer Name    # features/VasionPrint.feature:18   
+    When I open printer "beepbeep"                 # features/steps/builtin_steps.py:84
+    And I set the printer name to "TempTestName"   # features/steps/builtin_steps.py:90
+    Then the printer name should be "TempTestName" # features/steps/builtin_steps.py:196
+    When I open printer "TempTestName"             # features/steps/builtin_steps.py:84
+    And I set the printer name to "beepbeep"       # features/steps/builtin_steps.py:90
+    Then the printer name should be "beepbeep"     # features/steps/builtin_steps.py:196
+
+  Scenario: I can edit a printer's IP address                # features/VasionPrint.feature:26
+    When I open printer "beepbeep" Port settings             # features/steps/builtin_steps.py:114
+    Then I expect that element "#int_port_number" is visible # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:14   
+    When I set the printer IP to "1.0.1.0"                   # features/steps/builtin_steps.py:123
+    Then the printer IP should be "1.0.1.0"                  # features/steps/builtin_steps.py:201
+    When I set the printer IP to "255.255.255.255"           # features/steps/builtin_steps.py:123
+    Then the printer IP should be "255.255.255.255"          # features/steps/builtin_steps.py:201
+
+  Scenario: I can get to the Vasion Print Admin Guide   # features/VasionPrint.feature:34
+    Given I pause for 1000ms                            # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I open the help menu and click "Product Guide" # features/steps/builtin_steps.py:131
+    Then I expect that a new tab has opened             # features/steps/builtin_steps.py:26
+
+  Scenario: I can access General Settings   # features/VasionPrint.feature:39
+    Given I pause for 2000ms                # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    And I close the last opened tab         # features/steps/builtin_steps.py:30       
+    And I pause for 2000ms                  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I click on the element "body"      # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:21
+    And I pause for 3000ms                  # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions.py:16
+    And I navigate to "General" settings    # features/steps/builtin_steps.py:137      
+    Then I should see "General" on the page # features/steps/builtin_steps.py:206      
+
+  Scenario: I can access Printing Settings                 # features/VasionPrint.feature:48
+    When I navigate to "Printing" settings                 # features/steps/builtin_steps.py:137
+    Then I should see "Printing Configuration" on the page # features/steps/builtin_steps.py:206
+
+  Scenario: I can access Scanning Settings        # features/VasionPrint.feature:52    
+    Given I pause for 3000ms                      # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/actions_re.py:79
+    When I navigate to "Scanning" settings        # features/steps/builtin_steps.py:137
+    Then I should see "Scan Settings" on the page # features/steps/builtin_steps.py:206
+
+  Scenario: I can access Output Settings            # features/VasionPrint.feature:57  
+    When I navigate to "Output" settings            # features/steps/builtin_steps.py:137
+    Then I should see "Output Settings" on the page # features/steps/builtin_steps.py:206
+
+  Scenario: I can access Portal Settings            # features/VasionPrint.feature:61  
+    When I navigate to "Portal" settings            # features/steps/builtin_steps.py:137
+    Then I should see "Portal Settings" on the page # features/steps/builtin_steps.py:206
+
+  Scenario: I can access Client Settings   # features/VasionPrint.feature:65
+    When I navigate to "Client" settings   # features/steps/builtin_steps.py:137       
+    Then I should see "Client" on the page # features/steps/builtin_steps.py:206       
+
+  Scenario: I can access Mobile Settings            # features/VasionPrint.feature:69  
+    When I navigate to "Mobile" settings            # features/steps/builtin_steps.py:137
+    Then I should see "Mobile Settings" on the page # features/steps/builtin_steps.py:206
+
+  Scenario: I can access my account information     # features/VasionPrint.feature:73  
+    When I access my account information            # features/steps/builtin_steps.py:162
+    Then I should see "License Details" on the page # features/steps/builtin_steps.py:206
+
+  Scenario: I can Logout                              # features/VasionPrint.feature:77
+    When I logout                                     # features/steps/builtin_steps.py:174
+    Then I expect that the title is "Vasion Automate" # ../../../AppData/Local/Programs/Python/Python311/Lib/site-packages/behave_webdriver/steps/expectations.py:25
+
+1 feature passed, 0 failed, 0 skipped
+15 scenarios passed, 0 failed, 0 skipped
+45 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 1m35.169s
